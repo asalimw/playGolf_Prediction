@@ -37,8 +37,6 @@ shinyServer(function(input, output) {
                                 input$windy)),
             stringsAsFactors = FALSE)
         
-##        play <- "play"
-##        df <- rbind(df, play)
         input <- transpose(df)
         write.table(input,"input.csv", sep=",", quote = FALSE, row.names = FALSE, col.names = FALSE)
         
@@ -57,7 +55,7 @@ shinyServer(function(input, output) {
         if (input$submitbutton>0) { 
             isolate("Calculation complete.") 
         } else {
-            return("Please click submit button.")
+            return("Please click the submit button.")
         }
     })
     
