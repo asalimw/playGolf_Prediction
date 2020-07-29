@@ -41,7 +41,7 @@ shinyUI(fluidPage(theme = shinytheme("united"),
                                ),
                       
                       tabPanel("How to use",
-                               tags$label(h4("Unfavourable weather will affect your golf day!")),
+                               tags$label(h4("Unfavourable weather conditions will affect your golf day!")),
                                tags$br(),
                                tags$body(h5("To determine whether it is a good day for you to play golf, you will need to select \
                                             the following weather condition in the main page")),
@@ -71,8 +71,18 @@ shinyUI(fluidPage(theme = shinytheme("united"),
                                           of the individual trees."), 
                                    tags$p("The weather dataset used contains 14 examples of weather condition
                                           suitable for playing a game of golf. The info on this data set can be found here:"),
-                                   tags$a(href="https://datacadamia.com/data_mining/weather", "Click here!")
-                               )
+                                   tags$a(href="https://datacadamia.com/data_mining/weather", "Click here for dataset info!")
+                              ),
+                              tags$br(),
+                              
+                              tags$div(
+                                  tags$p("Once the dataset is downloaded we will fit the model and perform prediction on the test dataset. 
+                                         Please check out my code by clicking on this link"), 
+                              ),
+                              tags$a(href="https://github.com/asalimw/playGolf_Prediction/tree/master/playGolfPrediction", "Click here to check out my code!"),
+                              tags$br(),
+                              tags$br(),
+                              HTML("<h2><center>Thank You!</center></h2>")
                         )
                                
                       
