@@ -14,9 +14,20 @@ library(shinythemes)
 shinyUI(fluidPage(theme = shinytheme("cerulean"),
                     
                   # 3 tab panels with Title
-                  navbarPage(title = "Play Golf?",
+                  navbarPage(title = "Golf Day?",
+                      
+                      # Tab panel 1
                       tabPanel("Main", 
-                               HTML("<h3>Input parameters</h3>"),
+                               
+                               br(),
+                               
+                               HTML("<h2>Bad weather will ruin your golf day!</h3>"),
+                               HTML("<h4>Willianto Asalim - 29 July 2020</h4>"),
+                               
+                               hr(),
+                               
+                               
+                               HTML("<h3>Weather Conditions Check:</h3>"),
                                
                                br(),
                                
@@ -43,12 +54,13 @@ shinyUI(fluidPage(theme = shinytheme("cerulean"),
                                tableOutput('tabledata') # Prediction results table
                                ),
                       
+                      #Tab Panel 2
                       tabPanel("How to use",
                                p(h3("Unfavourable weather conditions will affect your golf day!")),
                                
                                br(),
                                
-                               p(h5("To determine whether it is a good day for you to play golf, you will need to select
+                               p(h4("To determine whether it is a good day for you to play golf, you will need to select
                                             the following weather condition in the main page")),
                                
                                br(),
@@ -87,6 +99,8 @@ shinyUI(fluidPage(theme = shinytheme("cerulean"),
                                  An air temperature of 61F can feel hugely different with a breeze and grey skies to a sheltered sunny spot.")
                                
                             ),
+                      
+                      #Tab panel 3
                       tabPanel("How it works",
                                p(h3("Prediction Methodology")),
                                
@@ -99,8 +113,8 @@ shinyUI(fluidPage(theme = shinytheme("cerulean"),
                                           A vast majority of dedicated golfers love cooler weather with low humidity and no breeze 
                                           (or just a little bit of a breeze)."), 
                                    
-                               p("The method used to predict the ideal golf day is to use Random Forest. 
-                                          Random forests or random decision forests are an ensemble learning method for classification, 
+                               p("The method used to predict the ideal golf day is to use", span("Random Forest.", style = "color:blue"), 
+                                          "Random forests or random decision forests are an ensemble learning method for classification, 
                                           regression and other tasks that operate by constructing a multitude of decision trees at training time 
                                           and outputting the class that is the mode of the classes (classification) or mean prediction (regression) 
                                           of the individual trees."), 
