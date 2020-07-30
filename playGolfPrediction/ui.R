@@ -69,7 +69,7 @@ shinyUI(fluidPage(theme = shinytheme("cerulean"),
                                
                                br(),
                                
-                               p(h4("To determine whether it is a good day for you to play golf, you will need to select
+                               p(h5("To determine whether it is a good day for you to play golf, you will need to select
                                             the following weather condition in the main page")),
                                
                                br(),
@@ -86,8 +86,6 @@ shinyUI(fluidPage(theme = shinytheme("cerulean"),
                                  "in the main page once all the weather conditions have been selected."),
                                
                                br(),
-                               
-                               
                                br(),
                                
                                p(h3("Handy tips:")),
@@ -141,16 +139,18 @@ shinyUI(fluidPage(theme = shinytheme("cerulean"),
                       
                       #Tab panel 4
                       tabPanel("About",
-                               p("This web app is created on 28 July 2020"),
-                               hr(),
+                               p(h3("Created")),
+                               p("28 July 2020"),
+                               br(),
                                
                                p(h3("Aim")),
                                
-                               p("Using Machine Learning - Ensemble Learning to predict whether to play a game of golf with certain weather conditions."), 
+                               p("Create and deploy on RStudio server a shiny application with associated supporting documentation 
+                                 about a Machine Learning - Ensemble Learning method to predict whether to play a game of golf 
+                                 with certain weather conditions."), 
                                
                                br(),
-                               br(),
-                               
+                              
                                p(h3("Authors")),
                                
                                p("Willianto Asalim"),
