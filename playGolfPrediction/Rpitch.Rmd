@@ -1,19 +1,59 @@
-#
-# This is the user-interface definition of a Shiny web application. You can
-# run the application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-# Created by Willianto Asalim on 28 July 2020
-# With the help of DataProfessor.
+---
+title: "Golf Day - Machine Learning"
+author: "Willianto Asalim"
+date: "30/07/2020"
+output: ioslides_presentation
+runtime: shiny
+---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r loadLibrary, warning=FALSE, message=FALSE}
 library(shiny)
 library(shinythemes)
+library(data.table)
+library(RCurl)
+library(randomForest)
+```
 
+## Information
+
+**Shiny App Created Date: 28 July 2020**
+
+This is a 5 web page presentation using R Markdown that features a Shiny web App on Golf|Weather dataset. There absolutely is such a thing as golf weather, although that specific spectrum of perfectly playable weather conditions depends on where you live, a vast majority of dedicated golfers love cooler weather with low humidity and no breeze (or just a little bit of a breeze).
+
+The aim of this web app is to predict whether to play a game of golf in certain weather conditions. To achieve the objective we will be deploying a Machine Learning - Ensemble Learning method 
+
+## Data and Machine Learning
+
+Info on the Golf|Weather Data: https://datacadamia.com/data_mining/weather
+
+Steps Taken:
+
+1. Prepare Data
+2. Build Random Forest Model
+3. Design 4 tab panel user interface in the ui.R
+4. Perform test on the Random Forest model in the server.R for prediction
+5. The code can be viewed on page 5 (last page) of the presentation
+
+```{r, data, warning=FALSE, message=FALSE}
+# Read data
+weather <- read.csv(text = getURL("https://raw.githubusercontent.com/asalimw/playGolf_Prediction/master/golfData.csv") )
+weather$outlook <- as.factor(weather$outlook)
+
+# Build model
+model <- randomForest(as.factor(play) ~ ., data = weather, ntree = 500, mtry = 4, importance = TRUE)
+```
+
+## The Shiny Web App
+
+```{r ui, warning=FALSE, message=FALSE}
+
+shinyApp(
 # Define UI for predicting whether to play golf
-shinyUI(fluidPage(theme = shinytheme("cerulean"),
+ui = fluidPage(theme = shinytheme("cerulean"),
                     
                   # 3 tab panels with Title
                   navbarPage(title = "Golf Day?",
@@ -137,7 +177,7 @@ shinyUI(fluidPage(theme = shinytheme("cerulean"),
                                br(),
                               
                                p("Once the dataset is downloaded we will fit the model and perform prediction on the test dataset.
-                                 Please look at the About page to check out my code!"), 
+                                 Please look at the about page to check out my code!"), 
                         ),
                       
                       #Tab panel 4
@@ -183,5 +223,73 @@ shinyUI(fluidPage(theme = shinytheme("cerulean"),
                       
                                 
                   )
-    )
+    ),
+
+
+
+
+
+# Define server logic required to draw a histogram
+server = function(input, output, session) {
+
+    # Input Data
+    datasetInput <- reactive({  
+        
+        # outlook,temperature,humidity,windy,play
+        df <- data.frame(
+            Name = c("outlook",
+                     "temperature",
+                     "humidity",
+                     "windy"),
+            Value = as.factor(c(input$outlook,
+                                input$temperature,
+                                input$humidity,
+                                input$windy)),
+            stringsAsFactors = FALSE)
+        
+        input <- transpose(df)
+        write.table(input,"input.csv", sep=",", quote = FALSE, row.names = FALSE, col.names = FALSE)
+        
+        test <- read.csv(paste("input", ".csv", sep=""), header = TRUE)
+        
+        test$outlook <- factor(test$outlook, levels = c("overcast", "rainy", "sunny"))
+        
+        
+        Output <- data.frame(Prediction=predict(model,test), round(predict(model,test,type="prob"), 3))
+        print(Output)
+        
+    })
+    
+    # Status/Output Text Box
+    output$contents <- renderPrint({
+        if (input$submitbutton>0) { 
+            isolate("Calculation complete.") 
+        } else {
+            return("Please click the submit button.")
+        }
+    })
+    
+    # Prediction results table
+    output$tabledata <- renderTable({
+        if (input$submitbutton>0) { 
+            isolate(datasetInput()) 
+        } 
+    })
+    
+    output$currentTime <- renderText({
+        
+        
+        format(Sys.Date())
+    })
+},
+
+options = list(height=500)
 )
+```
+
+## Thank you!
+
+To view my code please go to this website: 
+https://github.com/asalimw/playGolf_Prediction/tree/master/playGolfPrediction
+
+Today is **`r format(Sys.time(), '%d %B, %Y')`** and have a good day.
