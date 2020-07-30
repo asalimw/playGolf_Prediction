@@ -6,6 +6,8 @@
 #
 #    http://shiny.rstudio.com/
 #
+# Created by Willianto Asalim on 28 July 2020
+# With the help of DataProfessor.
 
 library(shiny)
 library(shinythemes)
@@ -18,25 +20,31 @@ shinyUI(fluidPage(theme = shinytheme("cerulean"),
                       
                       # Tab panel 1
                       tabPanel("Main", 
-                               
+                               h4(
+                                 "Today is ",
+                                 
+                                 textOutput("currentTime", container = span),
+                               ),
                                br(),
                                
                                HTML("<h2>Bad weather will ruin your golf day!</h3>"),
-                               HTML("<h4>Willianto Asalim - 29 July 2020</h4>"),
+                               HTML("<h5>Created by Willianto Asalim</h5>"),
                                
                                hr(),
                                
                                
-                               HTML("<h3>Weather Conditions Check:</h3>"),
+                               HTML("<h3>Weather Conditions Input:</h3>"),
                                
                                br(),
                                
                                selectInput("outlook", label = "Outlook:", 
                                            choices = list("Sunny" = "sunny", "Overcast" = "overcast", "Rainy" = "rainy"), 
                                            selected = "Rainy"),
-                               sliderInput("temperature", "Temperature (F):",
+                               
+                               sliderInput(inputId = "temperature", label = "Temperature (F):",
                                            min = 64, max = 86,
                                            value = 70),
+                               
                                sliderInput("humidity", "Humidity (%):",
                                            min = 65, max = 96,
                                            value = 90),
@@ -49,6 +57,7 @@ shinyUI(fluidPage(theme = shinytheme("cerulean"),
                                br(),
                                hr(),
                                
+
                                tags$label(h3('Should I play?')), # Status/Output Text Box
                                verbatimTextOutput('contents'),
                                tableOutput('tabledata') # Prediction results table
@@ -126,16 +135,47 @@ shinyUI(fluidPage(theme = shinytheme("cerulean"),
                                br(),
                                br(),
                               
-                               p("Once the dataset is downloaded we will fit the model and perform prediction on the test dataset. 
-                                         Please check out my code by clicking on this link"), 
-                              
+                               p("Once the dataset is downloaded we will fit the model and perform prediction on the test dataset.
+                                 Please look at the about page to check out my code!"), 
+                        ),
+                      
+                      #Tab panel 4
+                      tabPanel("About",
+                               p("This web app is created on 28 July 2020"),
+                               hr(),
+                               
+                               p(h3("Aim")),
+                               
+                               p("Using Machine Learning - Ensemble Learning to predict whether to play a game of golf with certain weather conditions."), 
+                               
+                               br(),
+                               br(),
+                               
+                               p(h3("Authors")),
+                               
+                               p("Willianto Asalim"),
+                               a(href="https://www.linkedin.com/in/willianto-asalim", "LinkedIn Profile"),
+                               
+                               
+                               br(),
+                               br(),
+                               
+                               p(h3("Code")),
+                               p("Code and input data used to generate this Shiny mapping tool are available on Github"), 
+                               
                                a(href="https://github.com/asalimw/playGolf_Prediction/tree/master/playGolfPrediction", "Click here to check out my code!"),
                                
                                br(),
                                br(),
                                
+                               p(h3("Inspiration")),
+                               p("Data Professor - Chanin Nantasenamat"), 
+                               
+                               br(),
+                               br(),
+                               
                                HTML("<h2><center>Thank You!</center></h2>")
-                        )
+                      )
                                
                       
                                 

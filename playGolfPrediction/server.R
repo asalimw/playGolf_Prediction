@@ -13,14 +13,14 @@ library(RCurl)
 library(randomForest)
 
 # Read data
-weather <- read.csv(text = getURL("https://raw.githubusercontent.com/dataprofessor/data/master/weather-weka.csv") )
+weather <- read.csv(text = getURL("https://raw.githubusercontent.com/asalimw/playGolf_Prediction/master/golfData.csv") )
 weather$outlook <- as.factor(weather$outlook)
 
 # Build model
 model <- randomForest(as.factor(play) ~ ., data = weather, ntree = 500, mtry = 4, importance = TRUE)
 
 # Define server logic required to draw a histogram
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
 
     # Input Data
     datasetInput <- reactive({  
@@ -64,5 +64,11 @@ shinyServer(function(input, output) {
         if (input$submitbutton>0) { 
             isolate(datasetInput()) 
         } 
+    })
+    
+    output$currentTime <- renderText({
+        
+        
+        format(Sys.Date())
     })
 })
