@@ -1,6 +1,8 @@
 # playGolf_Prediction
 Machine learning application to predict whether or not to play golf based on Weather conditions.
 
+Web App: https://asalimw.shinyapps.io/GolfDay/
+
 This is a 5 web page presentation using R Markdown that features a Shiny Web App on “Golf Weather”.
 
 There absolutely is such a thing as golf weather, although the specific spectrum of perfectly playable weather conditions depends on where you live and a vast majority of dedicated golfers love cooler weather with low humidity and no breeze (or just a little bit of a breeze).
